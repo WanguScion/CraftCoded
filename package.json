@@ -1,0 +1,14 @@
+{
+  "name": "craftcoded",
+  "version": "0.1.0",
+  "description": "to be done",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon app"
+  },
+  "author": "Scion Wangu",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
