@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const prisma = require("../db/dbConfig");
 
-const vendorRegister = async (req, res) => {
+const merchantRegister = async (req, res) => {
     //bad request check
     const { merchantName, email, password } = req.body;
     if (!merchantName || !email || !password) {
@@ -10,19 +10,19 @@ const vendorRegister = async (req, res) => {
 
     //credential existence in db check
     const findMerchant = await prisma.merchant.findFirst({
-        where: {email: email}
+        where: {registeredEmail: email}
     });
     if (findMerchant) {
         return res.json({ status: 409, body: { message: "Client with same credentials already exists!" } });
     }
 
     //insert new Merchant in db
-    const salt = bcrypt.gensaltsync(7);
+    const salt = bcrypt.genSaltSync(7);
     const pwHash = await bcrypt.hash(password, salt);
-    prisma.merchant.create({
+    const newMerchant = await prisma.merchant.create({
         data: {
             merchantName: merchantName,
-            email: email,
+            registeredEmail: email,
             password: pwHash
         }
     });
@@ -30,6 +30,5 @@ const vendorRegister = async (req, res) => {
 };
 
 module.exports = {
-    vendorRegister,
-    vendorLogin
+    merchantRegister
 };

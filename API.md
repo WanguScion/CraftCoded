@@ -10,8 +10,9 @@
             password
         }
         res :
-        pass : 409 Conflict {message}
-
+        pass :  201 Created {message},
+        fail :  400 BadRequest {message},
+                409 Conflict {message}
         2.) req :
         POST /loginWemail
         {
